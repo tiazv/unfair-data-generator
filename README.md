@@ -5,7 +5,6 @@
 A Python library for generating biased classification datasets with intentional unfairness patterns. This tool is designed for researchers and practitioners working on fairness in machine learning, allowing them to create controlled datasets with specific bias patterns for testing fairness algorithms. ⚖️🧪
 
 * **Free software:** MIT license
-* **GitHub**: https://github.com/tiazv/Make-Unfair-Classification
 * **Python**: 3.11, 3.12
 * **Operating systems**: Windows, Ubuntu, macOS
 

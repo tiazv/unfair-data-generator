@@ -3,9 +3,10 @@ from sklearn.utils import check_random_state, shuffle as util_shuffle
 from sklearn.utils.random import sample_without_replacement
 
 try:
-    from .helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
+    from util.helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
 except ImportError:
-    from helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
+    from make_unfair_classification.util.helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
+
 
 def make_unfair_classification(
     n_samples=100,
@@ -47,144 +48,63 @@ def make_unfair_classification(
     Thus, without shuffling, all useful features are contained in the columns
     ``X[:, :n_informative + n_redundant + n_repeated]``.
 
-    Read more in the :ref:`User Guide <sample_generators>`.
-
     Parameters:
-    ----------
-    n_samples : int, default=100
-        The number of samples.
+        n_samples (int, default=100): The number of samples.
+        n_features (int, default=20): The total number of features. These comprise ``n_informative`` informative features, ``n_redundant`` redundant features, ``n_repeated`` duplicated features and ``n_features-n_informative-n_redundant-n_repeated`` useless features drawn at random.
+        n_informative (int, default=2): The number of informative features. Each class is composed of a number of gaussian clusters each located around the vertices of a hypercube in a subspace of dimension ``n_informative``. For each cluster, informative features are drawn independently from  N(0, 1) and then randomly linearly combined within each cluster in order to add covariance. The clusters are then placed on the vertices of the hypercube.
+        n_redundant (int, default=2): The number of redundant features. These features are generated as random linear combinations of the informative features.
+        n_repeated (int, default=0): The number of duplicated features, drawn randomly from the informative and the redundant features.
+        n_leaky (int, default=0): The number of leaky features. These features are generated as combinations of the sensitive features.
+        n_classes (int, default=2): The number of classes (or labels) of the classification problem.
+        n_clusters_per_class (int, default=2): The number of clusters per class.
+        weights : (array-like of shape (n_classes,) or (n_classes - 1,), default=None): The proportions of samples assigned to each class. If None, then classes are balanced. Note that if ``len(weights) == n_classes - 1``, then the last class weight is automatically inferred. More than ``n_samples`` samples may be returned if the sum of ``weights`` exceeds 1. Note that the actual class proportions will not exactly match ``weights`` when ``flip_y`` isn't 0.
+        flip_y (float, default=0.01): The fraction of samples whose class is assigned randomly. Larger values introduce noise in the labels and make the classification task harder. Note that the default setting flip_y > 0 might lead to less than ``n_classes`` in y in some cases.
+        class_sep (float, default=1.0): The factor multiplying the hypercube size.  Larger values spread out the clusters/classes and make the classification task easier.
+        hypercube (bool, default=True): If True, the clusters are put on the vertices of a hypercube. If False, the clusters are put on the vertices of a random polytope.
+        shift (float, ndarray of shape (n_features,) or None, default=0.0): Shift features by the specified value. If None, then features are shifted by a random value drawn in [-class_sep, class_sep].
+        scale (float, ndarray of shape (n_features,) or None, default=1.0): Multiply features by the specified value. If None, then features are scaled by a random value drawn in [1, 100]. Note that scaling happens after shifting.
+        shuffle (bool, default=True): Shuffle the samples and the features.
+        random_state (int, RandomState instance or None, default=None): Determines random number generation for dataset creation. Pass an int for reproducible output across multiple function calls.
+        group_params (dict, default=None): A dictionary specifying group-specific parameters for creating clusters and assigning samples to sensitive groups. Each key in the dictionary represents a sensitive group, and its value is another dictionary that may include:
 
-    n_features : int, default=20
-        The total number of features. These comprise ``n_informative``
-        informative features, ``n_redundant`` redundant features,
-        ``n_repeated`` duplicated features and
-        ``n_features-n_informative-n_redundant-n_repeated`` useless features
-        drawn at random.
+            - 'class_sep' (float): The separation factor for clusters belonging to the group. Larger values create better-separated clusters.
 
-    n_informative : int, default=2
-        The number of informative features. Each class is composed of a number
-        of gaussian clusters each located around the vertices of a hypercube
-        in a subspace of dimension ``n_informative``. For each cluster,
-        informative features are drawn independently from  N(0, 1) and then
-        randomly linearly combined within each cluster in order to add
-        covariance. The clusters are then placed on the vertices of the
-        hypercube.
+            - 'weights' (array-like of shape (n_classes,)): The proportion of samples assigned to each class within the group. If None, group_params will be automatically generated using fairness_type and n_sensitive_groups.
 
-    n_redundant : int, default=2
-        The number of redundant features. These features are generated as
-        random linear combinations of the informative features.
+        n_sensitive_groups (int, default=2): The number of sensitive groups to create. Must be between 2 and 5. Used to automatically generate group_params when group_params is None.
+        fairness_type (str, default="Equal quality"): The type of fairness/equality to simulate when automatically generating group_params. Used only when group_params is None. Supported values:
 
-    n_repeated : int, default=0
-        The number of duplicated features, drawn randomly from the informative
-        and the redundant features.
+            - "Equal quality"
 
-    n_leaky : int, default=0
-        The number of leaky features. These features are generated as 
-        combinations of the sensitive features.
+            - "Demographic parity"
 
-    n_classes : int, default=2
-        The number of classes (or labels) of the classification problem.
+            - "Equal opportunity"
 
-    n_clusters_per_class : int, default=2
-        The number of clusters per class.
+            - "Equalized odds"
 
-    weights : array-like of shape (n_classes,) or (n_classes - 1,),\
-              default=None
-        The proportions of samples assigned to each class. If None, then
-        classes are balanced. Note that if ``len(weights) == n_classes - 1``,
-        then the last class weight is automatically inferred.
-        More than ``n_samples`` samples may be returned if the sum of
-        ``weights`` exceeds 1. Note that the actual class proportions will
-        not exactly match ``weights`` when ``flip_y`` isn't 0.
-
-    flip_y : float, default=0.01
-        The fraction of samples whose class is assigned randomly. Larger
-        values introduce noise in the labels and make the classification
-        task harder. Note that the default setting flip_y > 0 might lead
-        to less than ``n_classes`` in y in some cases.
-
-    class_sep : float, default=1.0
-        The factor multiplying the hypercube size.  Larger values spread
-        out the clusters/classes and make the classification task easier.
-
-    hypercube : bool, default=True
-        If True, the clusters are put on the vertices of a hypercube. If
-        False, the clusters are put on the vertices of a random polytope.
-
-    shift : float, ndarray of shape (n_features,) or None, default=0.0
-        Shift features by the specified value. If None, then features
-        are shifted by a random value drawn in [-class_sep, class_sep].
-
-    scale : float, ndarray of shape (n_features,) or None, default=1.0
-        Multiply features by the specified value. If None, then features
-        are scaled by a random value drawn in [1, 100]. Note that scaling
-        happens after shifting.
-
-    shuffle : bool, default=True
-        Shuffle the samples and the features.
-
-    random_state : int, RandomState instance or None, default=None
-        Determines random number generation for dataset creation. Pass an int
-        for reproducible output across multiple function calls.
-        See :term:`Glossary <random_state>`.
-
-    group_params : dict, default=None
-        A dictionary specifying group-specific parameters for creating clusters and assigning samples to sensitive groups
-        Each key in the dictionary represents a sensitive group, and its value is another dictionary that may include:
-        - 'class_sep' (float): The separation factor for clusters belonging to the group.
-        Larger values create better-separated clusters.
-        - 'weights' (array-like of shape (n_classes,)): The proportion of samples assigned to each class within the group
-        If None, group_params will be automatically generated using fairness_type and n_sensitive_groups.
-
-    n_sensitive_groups : int, default=2
-        The number of sensitive groups to create. Must be between 2 and 5.
-        Used to automatically generate group_params when group_params is None.
-
-    fairness_type : str, default="Equal quality"
-        The type of fairness/equality to simulate when automatically generating group_params.
-        Used only when group_params is None. Supported values:
-        - "Equal quality"
-        - "Demographic parity"
-        - "Equal opportunity"
-        - "Equalized odds"
-
-    return_sensitive_group_centroids : bool, default=False
-        If True, return the group centroids as an additional output.
-        These centroids represent the centers of the clusters used to generate te data
-        for each sensitive group and can be useful for visualization and analysis.
-
-    append_sensitive_to_X : bool, default=False
-        If True, append the sensitive group information as an additional column to X.
-        This adds the sensitive group labels as the last feature column
-        in the returned X matrix.
-        If False, the sensitive group information is returned as a separate array Z.
+        return_sensitive_group_centroids (bool, default=False): If True, return the group centroids as an additional output. These centroids represent the centers of the clusters used to generate te data for each sensitive group and can be useful for visualization and analysis.
+        append_sensitive_to_X (bool, default=False): If True, append the sensitive group information as an additional column to X. This adds the sensitive group labels as the last feature column in the returned X matrix. If False, the sensitive group information is returned as a separate array Z.
 
     Returns:
-    -------
-    X : ndarray of shape (n_samples, n_features)
-        The generated samples.
+        tuple: A tuple containing the following elements:
 
-    y : ndarray of shape (n_samples,)
-        The integer labels for class membership of each sample.
+            - X (ndarray): The generated samples. Shape (n_samples, n_features).
+            - y (ndarray): The integer labels for class membership of each sample. Shape (n_samples,).
+            - Z (ndarray, optional): Only returned when append_sensitive_to_X=False. Contains integer group identifiers where each unique value represents a different sensitive group. Shape (n_samples,).
+            - group_centroids (dict, optional): Dictionary of group-specific centroids. Only returned when return_sensitive_group_centroids=True.
 
-    Z : ndarray of shape (n_samples,), optional
-        Only returned when append_sensitive_to_X=False. Contains integer group identifiers where
-        each unique value represents a different sensitive group.
+    Note:
+        The function returns different combinations of outputs based on parameters:
 
-    group_centroids : dict, optional
-        Dictionary of group-specific centroids. Only returned when 
-        return_sensitive_group_centroids=True.
-        
-    Notes:
-    -----
-    The function returns different combinations of outputs based on parameters:
-    
-    - append_sensitive_to_X=False, return_sensitive_group_centroids=False: (X, y, Z)
-    - append_sensitive_to_X=False, return_sensitive_group_centroids=True: (X, y, Z, group_centroids)  
-    - append_sensitive_to_X=True, return_sensitive_group_centroids=False: (X, y)
-    - append_sensitive_to_X=True, return_sensitive_group_centroids=True: (X, y, group_centroids)
+            - append_sensitive_to_X=False, return_sensitive_group_centroids=False: (X, y, Z)
+
+            - append_sensitive_to_X=False, return_sensitive_group_centroids=True: (X, y, Z, group_centroids)  
+
+            - append_sensitive_to_X=True, return_sensitive_group_centroids=False: (X, y)
+
+            - append_sensitive_to_X=True, return_sensitive_group_centroids=True: (X, y, group_centroids)
     """
-    
+
     generator = check_random_state(random_state)
 
     # Count features, clusters and samples
@@ -210,8 +130,9 @@ def make_unfair_classification(
     # Build group-specific weights
     if group_params is None:
         # Generate group_params using fairness_type and n_sensitive_groups
-        group_params = get_params_for_certain_equality_type(fairness_type, n_sensitive_groups)
-    
+        group_params = get_params_for_certain_equality_type(
+            fairness_type, n_sensitive_groups)
+
     if group_params is not None:
         group_weights = {}
         for group, params in group_params.items():

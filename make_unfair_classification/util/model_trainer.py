@@ -6,7 +6,7 @@ from sklearn.metrics import recall_score
 try:
     from .helpers import get_group_name
 except ImportError:
-    from helpers import get_group_name
+    from make_unfair_classification.util.helpers import get_group_name
 
 import numpy as np
 
@@ -19,39 +19,25 @@ def evaluate_fairness_by_group(y_true, y_pred, groups, sensitive_groups):
     and confusion matrices for each sensitive group in the dataset.
 
     Parameters:
-    ----------
-    y_true : ndarray
-        Ground truth (true) target values.
-
-    y_pred : ndarray
-       Predicted labels from the classifier.
-
-    groups : ndarray
-        Sensitive group assignments for each sample. Each element indicates
-        which sensitive group the corresponding sample belongs to.
-
-    sensitive_groups : list
-        List of unique sensitive group identifiers present in the dataset.
-        For example, ["Sunny", "Cloudy", "Rainy"].
+        y_true (ndarray): Ground truth (true) target values.
+        y_pred (ndarray): Predicted labels from the classifier.
+        groups (ndarray): Sensitive group assignments for each sample. Each element indicates which sensitive group the corresponding sample belongs to.
+        sensitive_groups (list): List of unique sensitive group identifiers present in the dataset. For example, ["Sunny", "Cloudy", "Rainy"].
 
     Returns:
-    -------
-    results : dict
-        Dictionary containing fairness metrics for each sensitive group.
-        Each key is formatted as "Group {group}" and maps to a dictionary
-        containing:
-        
-        - 'Confusion Matrix' : list of lists
-            2x2 confusion matrix as nested lists in format [[TN, FP], [FN, TP]].
-        - 'Accuracy' : float
-            Classification accuracy (TP + TN) / (TP + TN + FP + FN).
-        - 'True Positive Rate (TPR)' : float
-            Sensitivity or recall, calculated as TP / (TP + FN).
-            Returns 0 if no positive samples exist in the group.
-        - 'False Positive Rate (FPR)' : float
-            Calculated as FP / (FP + TN).
-            Returns 0 if no negative samples exist in the group.
+        dict: Dictionary containing fairness metrics for each sensitive group. Each key is formatted as "Group {group}" and maps to a dictionary containing:
 
+            - 'Confusion Matrix' : list of lists
+                2x2 confusion matrix as nested lists in format [[TN, FP], [FN, TP]].
+
+            - 'Accuracy' : float
+                Classification accuracy :math:`\\frac{TP + TN}{TP + TN + FP + FN}`.
+
+            - 'True Positive Rate (TPR)' : float
+                Sensitivity or recall, calculated as :math:`\\frac{TP}{TP + FN}`. Returns 0 if no positive samples exist in the group.
+
+            - 'False Positive Rate (FPR)' : float
+                Calculated as :math:`\\frac{FP}{FP + TN}`. Returns 0 if no negative samples exist in the group.
     """
     results = {}
     for group in sensitive_groups:
@@ -75,44 +61,34 @@ def train_and_evaluate_model_with_classifier(X, y, Z):
     and calculates fairness metrics for each sensitive group.
 
     Parameters:
-    ----------
-    X : ndarray
-        Training data feature matrix. Contains the input features used for
-        classification, excluding sensitive attributes.
-
-    y : ndarray
-        Target values for classification. Binary labels where 0 represents
-        the negative class and 1 represents the positive class.
-
-    Z : ndarray
-        Sensitive group information for each sample. Each element
-        indicates which sensitive/protected group the corresponding sample
-        belongs to.
+        X (ndarray): Training data feature matrix. Contains the input features used for classification, excluding sensitive attributes.
+        y (ndarray): Target values for classification. Binary labels where 0 represents the negative class and 1 represents the positive class.
+        Z (ndarray): Sensitive group information for each sample. Each element indicates which sensitive/protected group the corresponding sample belongs to.
 
     Returns:
-    -------
-    metrics : dict
-        Comprehensive fairness metrics organized by sensitive group.
-        Each key represents a group name (determined by `get_group_name` function)
-        and maps to a dictionary containing:
+        dict: Comprehensive fairness metrics organized by sensitive group. Each key represents a group name (determined by `get_group_name` function) and maps to a dictionary containing:
 
-        - 'Accuracy' : float
-            Classification accuracy for the group.
-        - 'True Positive Rate (TPR)' : float
-            Sensitivity/recall for the group, calculated as TP/(TP+FN).
-        - 'False Positive Rate (FPR)' : float
-            Calculated as FP/(FP+TN) for the group.
-        - 'Samples in Positive class' : int
-            Number of samples predicted as positive class (TP + FP).
-        - 'Samples in Negative class' : int
-            Number of samples predicted as negative class (TN + FN).
-        - 'Confusion Matrix' : dict
-            Detailed breakdown with keys 'True Negative (TN)', 
-            'False Positive (FP)', 'False Negative (FN)', 'True Positive (TP)'.
+            - 'Accuracy' : float
+                Classification accuracy for the group.
+
+            - 'True Positive Rate (TPR)' : float
+                Sensitivity/recall for the group, calculated as :math:`\\frac{TP}{TP+FN}`.
+
+            - 'False Positive Rate (FPR)' : float
+                Calculated as :math:`\\frac{FP}{FP+TN}` for the group.
+
+            - 'Samples in Positive class' : int
+                Number of samples predicted as positive class (TP + FP).
+
+            - 'Samples in Negative class' : int
+                Number of samples predicted as negative class (TN + FN).
+
+            - 'Confusion Matrix' : dict
+                Detailed breakdown with keys 'True Negative (TN)', 'False Positive (FP)', 'False Negative (FN)', 'True Positive (TP)'.
     """
 
     sensitive_groups_data = Z
-    features = X 
+    features = X
 
     # Split the data (sensitive_groups_data is aligned with the rows of X and y)
     X_train, X_test, y_train, y_test, sensitive_train, sensitive_test = train_test_split(
@@ -138,7 +114,8 @@ def train_and_evaluate_model_with_classifier(X, y, Z):
         group_name = get_group_name(unique_groups, group)
 
         # Calculate confusion matrix
-        tn, fp, fn, tp = confusion_matrix(group_y_test, group_y_pred, labels=[0, 1]).ravel()
+        tn, fp, fn, tp = confusion_matrix(
+            group_y_test, group_y_pred, labels=[0, 1]).ravel()
 
         group_metrics = {
             "Accuracy": accuracy_score(group_y_test, group_y_pred),
@@ -156,4 +133,3 @@ def train_and_evaluate_model_with_classifier(X, y, Z):
         metrics[group_name] = group_metrics
 
     return metrics
-

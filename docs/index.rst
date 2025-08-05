@@ -1,7 +1,9 @@
 Make Unfair Classification
 ==========================
 
-A Python library for generating biased classification datasets with intentional unfairness patterns. This tool is designed for researchers and practitioners working on fairness in machine learning, allowing them to create controlled datasets with specific bias patterns for testing fairness algorithms. ⚖️🧪
+Make Unfair Classification is a Python library designed for generating biased classification datasets with intentional unfairness patterns. This tool extends scikit-learn's ``make_classification`` function to include sensitive group information and fairness constraints, allowing users to create controlled datasets with specific bias patterns for testing and developing fairness algorithms. ⚖️🧪
+
+Make Unfair Classification supports various fairness criteria violations and provides comprehensive tools for visualization and evaluation, making it an essential tool for fairness research and education. 💡
 
 * **Free software:** MIT license
 * **GitHub**: https://github.com/tiazv/Make-Unfair-Classification
@@ -14,13 +16,15 @@ Features
 - **Biased Dataset Generation**: Create classification datasets with intentional bias across sensitive groups. 🗃️
 - **Fairness Evaluation**: Built-in tools for evaluating model fairness across different groups. ⚖️
 - **Visualization**: Visualization capabilities for understanding bias patterns and fairness metrics. 📈
-- **Flexible Configuration**: Support for various equality types (demographic parity, equal opportunity, etc.). ⚙️
+- **Flexible Configuration**: Support for various equality types (demographic parity, equal opportunity, equal opportunity, equalized odds). ⚙️
 - **Leaky Features**: Generate features that leak sensitive information to simulate real-world bias. 🔓
+- **Multiple Groups**: Support for 2-5 sensitive groups with intuitive weather-based naming. 🌦️
+- **Scikit-learn Compatible**: Extends familiar scikit-learn patterns and interfaces. 🎯
 
 Supported Equality Types
 ------------------------
 
-The library supports generating datasets that violate specific fairness criteria:
+The library supports generating datasets that systematically violate specific fairness criteria. Each type creates different bias patterns:
 
 - **"Equal quality"**: Different classification performance across groups.
 - **"Demographic parity"**: Unequal positive prediction rates across groups.
@@ -32,8 +36,18 @@ Documentation
 
 The documentation is organised into the following sections:
 
+* :ref:`user`
+* :ref:`dev`
 * :ref:`make_unfair_classification`
 * :ref:`about`
+
+.. _user:
+
+.. toctree::
+   :maxdepth: 1
+   :caption: User documentation
+
+   user/usage
 
 .. _dev:
 

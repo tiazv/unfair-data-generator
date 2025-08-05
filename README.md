@@ -3,6 +3,19 @@
 </h1>
 
 <p align="center">
+    <img alt="Repository size" src="https://img.shields.io/github/repo-size/tiazv/Make-Unfair-Classification" />
+    <img alt="License" src="https://img.shields.io/github/license/tiazv/Make-Unfair-Classification.svg" />
+    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/tiazv/Make-Unfair-Classification.svg">
+    <a href="http://isitmaintained.com/project/tiazv/Make-Unfair-Classification">
+        <img alt="Percentage of issues still open" src="http://isitmaintained.com/badge/open/tiazv/Make-Unfair-Classification.svg">
+    </a>
+    <a href="http://isitmaintained.com/project/tiazv/Make-Unfair-Classification">
+        <img alt="Average time to resolve an issue" src="http://isitmaintained.com/badge/resolution/tiazv/Make-Unfair-Classification.svg">
+    </a>
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/tiazv/Make-Unfair-Classification.svg"/>
+</p>
+
+<p align="center">
     <a href="#-about">📋 About</a> •
     <a href="#-installation">📦 Installation</a> •
     <a href="#-usage">🚀 Usage</a> •
@@ -11,7 +24,6 @@
 </p>
 
 ## 📋 About
-
 **Make Unfair Classification** is a Python library designed for generating biased classification datasets with intentional unfairness patterns. This tool extends scikit-learn's `make_classification` function to include sensitive group information and fairness constraints, allowing users to create controlled datasets with specific bias patterns for testing and developing fairness algorithms. ⚖️🧪
 
 **Make Unfair Classification** supports various fairness criteria violations and provides comprehensive tools for visualization and evaluation, making it an essential tool for fairness research and education. 💡
@@ -21,24 +33,18 @@
 * **Operating systems**: Windows, Ubuntu, macOS
 
 ## ✨ Features
-- **Biased Dataset Generation**: Create classification datasets with intentional bias 
-across sensitive groups. 🗃️
-- **Fairness Evaluation**: Built-in tools for evaluating model fairness across different 
-groups. ⚖️
-- **Visualization**: Visualization capabilities for understanding bias patterns and 
-fairness metrics. 📈
-- **Flexible Configuration**: Support for various equality types (demographic parity, 
-equal opportunity, equal opportunity, equalized odds). ⚙️
-- **Leaky Features**: Generate features that leak sensitive information to simulate 
-real-world bias. 🔓
-- **🌦️ Multiple Groups**: Support for 2-5 sensitive groups with intuitive weather-based naming
-- **🎯 Scikit-learn Compatible**: Extends familiar scikit-learn patterns and interfaces
+- **Biased Dataset Generation**: Create classification datasets with intentional bias across sensitive groups. 🗃️
+- **Fairness Evaluation**: Built-in tools for evaluating model fairness across different groups. ⚖️
+- **Visualization**: Visualization capabilities for understanding bias patterns and fairness metrics. 📈
+- **Flexible Configuration**: Support for various equality types (demographic parity, equal opportunity, equal opportunity, equalized odds). ⚙️
+- **Leaky Features**: Generate features that leak sensitive information to simulate real-world bias. 🔓
+- **Multiple Groups**: Support for 2-5 sensitive groups with intuitive weather-based naming. 🌦️
+- **Scikit-learn Compatible**: Extends familiar scikit-learn patterns and interfaces. 🎯
 
 ## 📦 Installation
 
 
 ## 🚀 Usage
-
 The following example demonstrates how to generate a biased dataset and evaluate fairness using `make-unfair-classification`. More examples can be found in the [examples](./examples) directory.
 
 ```python
@@ -89,7 +95,6 @@ visualize_accuracy(metrics, title)
 ```
 
 ## ⚖️ Supported Equality Types
-
 The library supports generating datasets that systematically violate specific fairness criteria. Each type creates different bias patterns:
 
 - **Equal quality**   

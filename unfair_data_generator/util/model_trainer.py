@@ -6,7 +6,7 @@ from sklearn.metrics import recall_score
 try:
     from .helpers import get_group_name
 except ImportError:
-    from make_unfair_classification.util.helpers import get_group_name
+    from unfair_data_generator.util.helpers import get_group_name
 
 import numpy as np
 

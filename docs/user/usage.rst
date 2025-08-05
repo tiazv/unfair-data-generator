@@ -1,12 +1,12 @@
 Getting started
 ===============
 
-This section demonstrates the usage of ``make-unfair-classification``.
+This section demonstrates the usage of ``unfair-data-generator``.
 
 Usage
 -----
 
-The following example demonstrates how to generate a biased dataset and evaluate fairness using ``make-unfair-classification``.
+The following example demonstrates how to generate a biased dataset and evaluate fairness using ``unfair-data-generator``.
 
 ..  code:: python
 
@@ -15,10 +15,10 @@ The following example demonstrates how to generate a biased dataset and evaluate
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import accuracy_score
 
-    from make_unfair_classification.unfair_classification import make_unfair_classification
-    from make_unfair_classification.util.helpers import get_params_for_certain_equality_type
-    from make_unfair_classification.util.model_trainer import train_and_evaluate_model_with_classifier
-    from make_unfair_classification.util.visualizer import (
+    from unfair_data_generator.unfair_classification import make_unfair_classification
+    from unfair_data_generator.util.helpers import get_params_for_certain_equality_type
+    from unfair_data_generator.util.model_trainer import train_and_evaluate_model_with_classifier
+    from unfair_data_generator.util.visualizer import (
         visualize_TPR_FPR_metrics, 
         visualize_accuracy, 
         visualize_groups_separately
@@ -44,7 +44,6 @@ The following example demonstrates how to generate a biased dataset and evaluate
 
     # Visualize group-specific patterns
     visualize_groups_separately(X, y, Z)
-
     visualize_group_classes(X, y, Z, centroids)
 
     # Train model and evaluate fairness

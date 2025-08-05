@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "make-unfair-classification"
+name = "unfair-data-generator"
 version = "0.1.0"
 description = ""
 authors = ["Sašo Karakatič <karakatic@gmail.com>", "Tia Žvajker <tia.zvajker@student.um.si>", "Tadej Lahovnik <lahovnik.tadej@gmail.com>"]

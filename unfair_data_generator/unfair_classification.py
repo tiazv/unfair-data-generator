@@ -5,7 +5,7 @@ from sklearn.utils.random import sample_without_replacement
 try:
     from util.helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
 except ImportError:
-    from make_unfair_classification.util.helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
+    from unfair_data_generator.util.helpers import _generate_hypercube, _generate_leaky_variables, get_params_for_certain_equality_type
 
 
 def make_unfair_classification(

@@ -100,7 +100,7 @@ List of `unfair-data-generator`'s development dependencies:
 | sphinx-rtd-theme | ^1.0.0  | All      |
 
 ### Documentation
-The latest documentation is available at []().
+The latest documentation is available at [https://unfair-data-generator.readthedocs.io](https://unfair-data-generator.readthedocs.io).
 
 The documentation is built using [Sphinx](https://www.sphinx-doc.org) and hosted on [Read the Docs](https://readthedocs.org). The source files for the documentation are located in the `./docs` directory.
 

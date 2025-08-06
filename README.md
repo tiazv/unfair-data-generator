@@ -29,6 +29,7 @@
 **Unfair Data Generator** supports various fairness criteria violations and provides comprehensive tools for visualization and evaluation, making it an essential tool for fairness research and education. 💡
 
 * **Free software:** MIT license
+* **Documentation:** [https://unfair-data-generator.readthedocs.io](https://unfair-data-generator.readthedocs.io)
 * **Python**: 3.11, 3.12
 * **Operating systems**: Windows, Ubuntu, macOS
 

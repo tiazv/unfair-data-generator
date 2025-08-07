@@ -43,7 +43,11 @@
 - **Scikit-learn Compatible**: Extends familiar scikit-learn patterns and interfaces. 🎯
 
 ## 📦 Installation
-
+### pip
+To install `unfair-data-generator` using pip, run the following command:
+```bash
+pip install unfair-data-generator
+```
 
 ## 🚀 Usage
 The following example demonstrates how to generate a biased dataset and evaluate fairness using `unfair-data-generator`. More examples can be found in the [examples](./examples) directory.

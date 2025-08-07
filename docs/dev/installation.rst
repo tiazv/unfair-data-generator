@@ -10,7 +10,7 @@ Requirements
 - Python: https://www.python.org
 - Poetry: https://python-poetry.org/docs
 
-After installing Poetry and cloning the project from GitHub, execute the following command in the root directory of the cloned project:
+After installing Poetry and cloning the project from `GitHub <https://github.com/tiazv/unfair-data-generator>`_, execute the following command in the root directory of the cloned project:
 
 .. code:: sh
 
@@ -21,7 +21,7 @@ All of the project's dependencies should be installed and the project should be 
 Development dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-List of Make-Unfair-Classification's dependencies:
+List of unfair-data-generator's dependencies:
 
 +----------------------+----------------------+
 | Package              | Version              |

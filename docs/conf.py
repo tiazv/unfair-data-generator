@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Make Unfair Classification'
+project = 'unfair-data-generator'
 copyright = '2025, Sašo Karakatič, Tia Žvajker, Tadej Lahovnik'
 author = 'Sašo Karakatič, Tia Žvajker, Tadej Lahovnik'
 

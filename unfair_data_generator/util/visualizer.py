@@ -5,7 +5,7 @@ import numpy as np
 try:
     from .helpers import get_group_name, get_class_name, get_group_marker
 except ImportError:
-    from make_unfair_classification.util.helpers import get_group_name, get_class_name, get_group_marker
+    from unfair_data_generator.util.helpers import get_group_name, get_class_name, get_group_marker
 
 """
 Visualization utilities for fairness analysis in machine learning.
@@ -98,7 +98,7 @@ def visualize_groups_separately(X, y, Z, feature1=None, feature2=None, feature1_
         title (str, default="Group-specific visualization"): Base title for the plots.
 
     Returns:
-        figures (dict): Dictionary containing matplotlib figure objects for each group.
+        dict: Dictionary containing matplotlib figure objects for each group.
 
     Raises:
         ValueError: If feature1 and feature2 are provided but are the same, or if they are not provided correctly.

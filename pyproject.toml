@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "make-unfair-classification"
+name = "unfair-data-generator"
 version = "0.1.0"
 description = ""
 authors = ["Sašo Karakatič <karakatic@gmail.com>", "Tia Žvajker <tia.zvajker@student.um.si>", "Tadej Lahovnik <lahovnik.tadej@gmail.com>"]
@@ -16,6 +16,9 @@ sphinx-rtd-theme = {version = "^1.0.0", extras = ["docs"]}
 
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-rtd-theme"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
 
 [build-system]
 requires = ["poetry-core"]

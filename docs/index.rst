@@ -1,12 +1,12 @@
-Make Unfair Classification
-==========================
+unfair-data-generator
+=====================
 
-Make Unfair Classification is a Python library designed for generating biased classification datasets with intentional unfairness patterns. This tool extends scikit-learn's ``make_classification`` function to include sensitive group information and fairness constraints, allowing users to create controlled datasets with specific bias patterns for testing and developing fairness algorithms. ⚖️🧪
+unfair-data-generator is a Python library designed for generating biased classification datasets with intentional unfairness patterns. This tool extends scikit-learn's ``make_classification`` function to include sensitive group information and fairness constraints, allowing users to create controlled datasets with specific bias patterns for testing and developing fairness algorithms. ⚖️🧪
 
-Make Unfair Classification supports various fairness criteria violations and provides comprehensive tools for visualization and evaluation, making it an essential tool for fairness research and education. 💡
+unfair-data-generator supports various fairness criteria violations and provides comprehensive tools for visualization and evaluation, making it an essential tool for fairness research and education. 💡
 
 * **Free software:** MIT license
-* **GitHub**: https://github.com/tiazv/Make-Unfair-Classification
+* **GitHub**: https://github.com/tiazv/unfair-data-generator
 * **Python**: 3.11, 3.12
 * **Operating systems**: Windows, Ubuntu, macOS
 
@@ -38,7 +38,7 @@ The documentation is organised into the following sections:
 
 * :ref:`user`
 * :ref:`dev`
-* :ref:`make_unfair_classification`
+* :ref:`unfair_data_generator`
 * :ref:`about`
 
 .. _user:
@@ -58,13 +58,13 @@ The documentation is organised into the following sections:
    dev/installation
    dev/documentation
 
-.. _make_unfair_classification:
+.. _unfair_data_generator:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Make Unfair Classification
+   :caption: unfair_data_generator
 
-   make_unfair_classification/index
+   unfair_data_generator/index
 
 .. _about:
 

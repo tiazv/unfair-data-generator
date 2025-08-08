@@ -31,6 +31,7 @@
 * **Free software:** MIT license
 * **Documentation:** [https://unfair-data-generator.readthedocs.io](https://unfair-data-generator.readthedocs.io)
 * **Python**: 3.11, 3.12
+* **Dependencies**: listed in [CONTRIBUTING.md](./CONTRIBUTING.md#dependencies)
 * **Operating systems**: Windows, Ubuntu, macOS
 
 ## ✨ Features

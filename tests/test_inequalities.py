@@ -56,7 +56,7 @@ def compute_all_metric_ranges(y_true, y_pred, z):
     }
 
 
-def test_equal_quality_violation_detectable():
+def test_equal_quality_violation():
     # Equal quality: expect accuracy to vary across sensitive groups.
     X, y, z = make_unfair_classification(
         n_samples=4000,
@@ -75,7 +75,7 @@ def test_equal_quality_violation_detectable():
     assert ranges["accuracy"] > 0.05, f"ranges={ranges}"
 
 
-def test_demographic_parity_violation_detectable():
+def test_demographic_parity_violation():
     # Demographic parity: expect selection rate to vary across groups.
     X, y, z = make_unfair_classification(
         n_samples=4000,
@@ -94,7 +94,7 @@ def test_demographic_parity_violation_detectable():
     assert ranges["selection_rate"] > 0.05, f"ranges={ranges}"
 
 
-def test_equal_opportunity_violation_detectable():
+def test_equal_opportunity_violation():
     # Equal opportunity: expect TPR to vary across groups.
     X, y, z = make_unfair_classification(
         n_samples=4000,
@@ -113,7 +113,7 @@ def test_equal_opportunity_violation_detectable():
     assert ranges["tpr"] > 0.05, f"ranges={ranges}"
 
 
-def test_equalized_odds_violation_detectable():
+def test_equalized_odds_violation():
     # Equalized odds: expect both TPR and FPR to vary across groups.
     X, y, z = make_unfair_classification(
         n_samples=4000,
@@ -132,5 +132,3 @@ def test_equalized_odds_violation_detectable():
     # Expect both TPR and FPR to vary across groups
     assert ranges["tpr"] > 0.05, f"ranges={ranges}"
     assert ranges["fpr"] > 0.04, f"ranges={ranges}"
-
-

@@ -3,6 +3,13 @@
 </h1>
 
 <p align="center">
+    <img alt="PyPI version" src="https://img.shields.io/pypi/v/unfair-data-generator.svg" />
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/unfair-data-generator.svg">
+    <img alt="Downloads" src="https://static.pepy.tech/badge/unfair-data-generator">
+    <img alt="Documentation status" src="https://readthedocs.org/projects/unfair-data-generator/badge/?version=latest" />
+</p>
+
+<p align="center">
     <img alt="Repository size" src="https://img.shields.io/github/repo-size/tiazv/unfair-data-generator" />
     <img alt="License" src="https://img.shields.io/github/license/tiazv/unfair-data-generator.svg" />
     <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/tiazv/unfair-data-generator.svg">
@@ -31,6 +38,7 @@
 * **Free software:** MIT license
 * **Documentation:** [https://unfair-data-generator.readthedocs.io](https://unfair-data-generator.readthedocs.io)
 * **Python**: 3.11, 3.12
+* **Dependencies**: listed in [CONTRIBUTING.md](./CONTRIBUTING.md#dependencies)
 * **Operating systems**: Windows, Ubuntu, macOS
 
 ## ✨ Features
@@ -43,7 +51,11 @@
 - **Scikit-learn Compatible**: Extends familiar scikit-learn patterns and interfaces. 🎯
 
 ## 📦 Installation
-
+### pip
+To install `unfair-data-generator` using pip, run the following command:
+```bash
+pip install unfair-data-generator
+```
 
 ## 🚀 Usage
 The following example demonstrates how to generate a biased dataset and evaluate fairness using `unfair-data-generator`. More examples can be found in the [examples](./examples) directory.

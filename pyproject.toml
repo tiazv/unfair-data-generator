@@ -13,6 +13,7 @@ pandas = "^2.3.1"
 scikit-learn = "~1.3.2"
 sphinx = {version = "^5.0", extras = ["docs"]}
 sphinx-rtd-theme = {version = "^1.0.0", extras = ["docs"]}
+fairlearn = "^0.12.0"
 
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-rtd-theme"]

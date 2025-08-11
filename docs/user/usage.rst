@@ -3,6 +3,15 @@ Getting started
 
 This section demonstrates the usage of ``unfair-data-generator``.
 
+Installation
+------------
+
+To install ``unfair-data-generator`` with pip, run the following command:
+
+..  code:: bash
+
+    pip install unfair-data-generator
+
 Usage
 -----
 

@@ -3,6 +3,13 @@
 </h1>
 
 <p align="center">
+    <img alt="PyPI version" src="https://img.shields.io/pypi/v/unfair-data-generator.svg" />
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/unfair-data-generator.svg">
+    <img alt="Downloads" src="https://static.pepy.tech/badge/unfair-data-generator">
+    <img alt="Documentation status" src="https://readthedocs.org/projects/unfair-data-generator/badge/?version=latest" />
+</p>
+
+<p align="center">
     <img alt="Repository size" src="https://img.shields.io/github/repo-size/tiazv/unfair-data-generator" />
     <img alt="License" src="https://img.shields.io/github/license/tiazv/unfair-data-generator.svg" />
     <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/tiazv/unfair-data-generator.svg">

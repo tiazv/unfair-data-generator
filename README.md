@@ -6,6 +6,7 @@
     <img alt="PyPI version" src="https://img.shields.io/pypi/v/unfair-data-generator.svg" />
     <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/unfair-data-generator.svg">
     <img alt="Downloads" src="https://static.pepy.tech/badge/unfair-data-generator">
+    <img alt="unfair-data-generator" src="https://github.com/tiazv/unfair-data-generator/actions/workflows/test.yml/badge.svg" />
     <img alt="Documentation status" src="https://readthedocs.org/projects/unfair-data-generator/badge/?version=latest" />
 </p>
 

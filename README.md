@@ -28,6 +28,7 @@
     <a href="#-installation">📦 Installation</a> •
     <a href="#-usage">🚀 Usage</a> •
     <a href="#️-supported-equality-types">⚖️ Supported Equality Types</a> •
+    <a href="#-community-guidelines">🫂 Community Guidelines</a> •
     <a href="#-license">📜 License</a>
 </p>
 
@@ -118,6 +119,16 @@ Unequal positive prediction rates across groups.
 Unequal true positive rates across groups.
 - **Equalized odds**  
 Unequal true positive and false positive rates across groups.
+
+## 🫂 Community Guidelines
+### Contributing
+To contribure to the software, please read the [contributing guidelines](./CONTRIBUTING.md).
+
+### Reporting Issues
+If you encounter any issues with the library, please report them using the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues). Include a detailed description of the problem, including the steps to reproduce the problem, the stack trace, and details about your operating system and software version.
+
+### Seeking Support
+If you need support, please first refer to the [documentation](https://unfair-data-generator.readthedocs.io). If you still require assistance, please open an issue on the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues) with the `question` tag. For private inquiries, you can contact us via e-mail at [saso.karakatic@um.si](mailto:saso.karakatic@um.si) or [tadej.lahovnik1@um.si](mailto:tadej.lahovnik1@um.si).
 
 ## 📜 License
 This package is distributed under the MIT License. This license can be found online at <http://www.opensource.org/licenses/MIT>.

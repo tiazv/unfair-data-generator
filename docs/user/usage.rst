@@ -25,7 +25,8 @@ The following example demonstrates how to generate a biased dataset and evaluate
     from unfair_data_generator.util.visualizer import (
         visualize_TPR_FPR_metrics, 
         visualize_accuracy, 
-        visualize_groups_separately
+        visualize_groups_separately,
+        visualize_group_classes
     )
 
     # Configure dataset parameters
@@ -41,7 +42,7 @@ The following example demonstrates how to generate a biased dataset and evaluate
         n_features=10,
         n_informative=3,
         n_leaky=2,
-        random_state=42
+        random_state=42,
         group_params=group_params,
         return_sensitive_group_centroids=True,
     )

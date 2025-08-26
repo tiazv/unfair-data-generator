@@ -2,7 +2,7 @@ name: JOSS
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, development ]
     paths:
       - 'paper/**'
 

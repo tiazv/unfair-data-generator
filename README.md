@@ -3,6 +3,14 @@
 </h1>
 
 <p align="center">
+    <img alt="PyPI version" src="https://img.shields.io/pypi/v/unfair-data-generator.svg" />
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/unfair-data-generator.svg">
+    <img alt="Downloads" src="https://static.pepy.tech/badge/unfair-data-generator">
+    <img alt="unfair-data-generator" src="https://github.com/tiazv/unfair-data-generator/actions/workflows/test.yml/badge.svg" />
+    <img alt="Documentation status" src="https://readthedocs.org/projects/unfair-data-generator/badge/?version=latest" />
+</p>
+
+<p align="center">
     <img alt="Repository size" src="https://img.shields.io/github/repo-size/tiazv/unfair-data-generator" />
     <img alt="License" src="https://img.shields.io/github/license/tiazv/unfair-data-generator.svg" />
     <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/tiazv/unfair-data-generator.svg">
@@ -20,6 +28,7 @@
     <a href="#-installation">📦 Installation</a> •
     <a href="#-usage">🚀 Usage</a> •
     <a href="#️-supported-equality-types">⚖️ Supported Equality Types</a> •
+    <a href="#-community-guidelines">🫂 Community Guidelines</a> •
     <a href="#-license">📜 License</a>
 </p>
 
@@ -105,6 +114,16 @@ Unequal positive prediction rates across groups.
 Unequal true positive rates across groups.
 - **Equalized odds**  
 Unequal true positive and false positive rates across groups.
+
+## 🫂 Community Guidelines
+### Contributing
+To contribure to the software, please read the [contributing guidelines](./CONTRIBUTING.md).
+
+### Reporting Issues
+If you encounter any issues with the library, please report them using the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues). Include a detailed description of the problem, including the steps to reproduce the problem, the stack trace, and details about your operating system and software version.
+
+### Seeking Support
+If you need support, please first refer to the [documentation](https://unfair-data-generator.readthedocs.io). If you still require assistance, please open an issue on the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues) with the `question` tag. For private inquiries, you can contact us via e-mail at [saso.karakatic@um.si](mailto:saso.karakatic@um.si) or [tadej.lahovnik1@um.si](mailto:tadej.lahovnik1@um.si).
 
 ## 📜 License
 This package is distributed under the MIT License. This license can be found online at <http://www.opensource.org/licenses/MIT>.

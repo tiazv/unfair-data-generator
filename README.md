@@ -6,6 +6,7 @@
     <img alt="PyPI version" src="https://img.shields.io/pypi/v/unfair-data-generator.svg" />
     <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/unfair-data-generator.svg">
     <img alt="Downloads" src="https://static.pepy.tech/badge/unfair-data-generator">
+    <img alt="unfair-data-generator" src="https://github.com/tiazv/unfair-data-generator/actions/workflows/test.yml/badge.svg" />
     <img alt="Documentation status" src="https://readthedocs.org/projects/unfair-data-generator/badge/?version=latest" />
 </p>
 
@@ -27,6 +28,7 @@
     <a href="#-installation">📦 Installation</a> •
     <a href="#-usage">🚀 Usage</a> •
     <a href="#️-supported-equality-types">⚖️ Supported Equality Types</a> •
+    <a href="#-community-guidelines">🫂 Community Guidelines</a> •
     <a href="#-license">📜 License</a>
 </p>
 
@@ -61,11 +63,6 @@ pip install unfair-data-generator
 The following example demonstrates how to generate a biased dataset and evaluate fairness using `unfair-data-generator`. More examples can be found in the [examples](./examples) directory.
 
 ```python
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-
 from unfair_data_generator.unfair_classification import make_unfair_classification
 from unfair_data_generator.util.helpers import get_params_for_certain_equality_type
 from unfair_data_generator.util.model_trainer import train_and_evaluate_model_with_classifier
@@ -117,6 +114,16 @@ Unequal positive prediction rates across groups.
 Unequal true positive rates across groups.
 - **Equalized odds**  
 Unequal true positive and false positive rates across groups.
+
+## 🫂 Community Guidelines
+### Contributing
+To contribure to the software, please read the [contributing guidelines](./CONTRIBUTING.md).
+
+### Reporting Issues
+If you encounter any issues with the library, please report them using the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues). Include a detailed description of the problem, including the steps to reproduce the problem, the stack trace, and details about your operating system and software version.
+
+### Seeking Support
+If you need support, please first refer to the [documentation](https://unfair-data-generator.readthedocs.io). If you still require assistance, please open an issue on the [issue tracker](https://github.com/tiazv/unfair-data-generator/issues) with the `question` tag. For private inquiries, you can contact us via e-mail at [saso.karakatic@um.si](mailto:saso.karakatic@um.si) or [tadej.lahovnik1@um.si](mailto:tadej.lahovnik1@um.si).
 
 ## 📜 License
 This package is distributed under the MIT License. This license can be found online at <http://www.opensource.org/licenses/MIT>.

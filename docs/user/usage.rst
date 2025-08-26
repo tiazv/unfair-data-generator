@@ -19,11 +19,6 @@ The following example demonstrates how to generate a biased dataset and evaluate
 
 ..  code:: python
 
-    import pandas as pd
-    from sklearn.model_selection import train_test_split
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.metrics import accuracy_score
-
     from unfair_data_generator.unfair_classification import make_unfair_classification
     from unfair_data_generator.util.helpers import get_params_for_certain_equality_type
     from unfair_data_generator.util.model_trainer import train_and_evaluate_model_with_classifier

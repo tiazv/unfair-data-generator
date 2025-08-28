@@ -19,18 +19,14 @@ The following example demonstrates how to generate a biased dataset and evaluate
 
 ..  code:: python
 
-    import pandas as pd
-    from sklearn.model_selection import train_test_split
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.metrics import accuracy_score
-
     from unfair_data_generator.unfair_classification import make_unfair_classification
     from unfair_data_generator.util.helpers import get_params_for_certain_equality_type
     from unfair_data_generator.util.model_trainer import train_and_evaluate_model_with_classifier
     from unfair_data_generator.util.visualizer import (
         visualize_TPR_FPR_metrics, 
         visualize_accuracy, 
-        visualize_groups_separately
+        visualize_groups_separately,
+        visualize_group_classes
     )
 
     # Configure dataset parameters
@@ -46,7 +42,7 @@ The following example demonstrates how to generate a biased dataset and evaluate
         n_features=10,
         n_informative=3,
         n_leaky=2,
-        random_state=42
+        random_state=42,
         group_params=group_params,
         return_sensitive_group_centroids=True,
     )

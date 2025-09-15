@@ -210,27 +210,29 @@ def make_unfair_classification(
     # Pre-allocate array for sensitive group values
     sensitive_data = np.empty(n_samples, dtype=int)
     for i, group_name in enumerate(group_params.keys() if group_params is not None else []):
-        for k in range(n_classes * n_clusters_per_class):
-            start, stop = stop, stop + n_samples_per_cluster[counter]
+        for k in range(n_classes):
+            for cluster_idx in range(n_clusters_per_class):
+                start, stop = stop, stop + n_samples_per_cluster[counter]
 
-            # If centroid has X in the negative, it is a negative class, otherwise it is a positive class
-            y[start:stop] = 0 if group_centroids[group_name][k][0] <= 0 else 1
+                # Assign class labels based on the intended class distribution
+                y[start:stop] = k
 
-            # Get X values for this centroid
-            X_k = X[start:stop, :n_informative]
+                # Get X values for this centroid
+                X_k = X[start:stop, :n_informative]
 
-            # Get the centroid
-            centroid = group_centroids[group_name][k]
+                # Get the centroid
+                centroid_index = k * n_clusters_per_class + cluster_idx
+                centroid = group_centroids[group_name][centroid_index]
 
-            A = np.eye(n_informative)  # Identity matrix (no covariance)
-            X_k[...] = np.dot(X_k, A)
-            X_k += centroid  # Shift to group-specific centroid
+                A = np.eye(n_informative)  # Identity matrix (no covariance)
+                X_k[...] = np.dot(X_k, A)
+                X_k += centroid  # Shift to group-specific centroid
 
-            # Assign sensitive group value to the new column in X
-            # Set the sensitive group value to "i"
-            sensitive_data[start:stop] = i
+                # Assign sensitive group value to the new column in X
+                # Set the sensitive group value to "i"
+                sensitive_data[start:stop] = i
 
-            counter = counter + 1
+                counter = counter + 1
 
     # Create redundant features
     if n_redundant > 0:

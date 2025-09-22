@@ -5,7 +5,7 @@ tags:
   - fairness
   - bias
   - machine learning
-  - data generatior
+  - data generation
 authors:
   - name: Sašo Karakatič
     orcid: 0000-0003-4441-9690
@@ -32,7 +32,9 @@ The library produces classification datasets that are fully compatible with the 
 
 Optional leaky features can be generated that correlate with group membership, simulating common real-world scenarios where neutral attributes (such as ZIP codes, education history, or credit scores) inadvertently encode information about protected characteristics [@turini2008discrimination; @datta2017proxy]. These features create pathways for discriminatory outcomes even when sensitive attributes are not directly used in model training.
 
-The library uses intuitive weather-based naming conventions (Sunny, Cloudy, Rainy, Windy, Stormy) for sensitive groups, supporting 2-5 groups per dataset (easily extendable to unlimited). These neutral weather terms avoid associations with existing societal biases, ensuring the generated datasets remain free from unintended connotations. The output includes feature matrix `X`, labels `y`, sensitive attribute `Z`, and diagnostic summaries of the achieved group-wise fairness violations, providing researchers with both the synthetic data and verification that intended unfairness patterns were successfully created.
+The library uses intuitive weather-based naming conventions (Sunny, Cloudy, Rainy, Windy, Stormy) for sensitive groups, supporting 2-5 groups per dataset (easily extendable to unlimited). These neutral weather terms avoid associations with existing societal biases, ensuring the generated datasets remain free from unintended connotations. The output includes feature matrix $X$, labels $y$, sensitive attribute $Z$, and diagnostic summaries of the achieved group-wise fairness violations, providing researchers with both the synthetic data and verification that intended unfairness patterns were successfully created.
+
+\newpage
 
 This controlled generation approach supports reproducible experiments where ground-truth unfairness is required, enabling rigorous evaluation of fairness-aware algorithms, systematic benchmarking studies, and educational applications where students can explore bias patterns with known characteristics.
 
@@ -46,11 +48,13 @@ While existing fairness libraries such as fairlearn[^2] and AIF360[^3] [@mehrabi
 
 The architecture follows scikit-learn library's design patterns while extending its functionality to address the controlled generation of unfair datasets. The code is organized into four main modules, each responsible for a distinct aspect of the workflow.
 
-The central component is the Dataset Generation Module, which extends scikit-learn's `make_classification()` with fairness-aware capabilities. By manipulating cluster centroids, class separations, and sample distributions, it generates synthetic datasets with intentional bias patterns across sensitive groups. The function preserves scikit-learn compatibility while adding fairness-specific parameters such as `fairness_type`, `n_sensitive_groups`, and `n_leaky`, and outputs feature matrices (`X`), target labels (`y`), and sensitive group assignments (`Z`).
+The central component is the dataset generation module, which extends scikit-learn's `make_classification()` with fairness-aware capabilities. By manipulating cluster centroids, class separations, and sample distributions, it generates synthetic datasets with intentional bias patterns across sensitive groups. The function preserves scikit-learn compatibility while adding fairness-specific parameters such as `fairness_type`, `n_sensitive_groups`, and `n_leaky`, and outputs feature matrices ($X$), target labels ($y$), and sensitive group assignments ($Z$).
 
 Complementing the core functionality, the parameter configuration module automates the generation of parameters for various fairness scenarios, supporting four common criteria: Equal Quality, Demographic Parity, Equal Opportunity, and Equalized Odds. It provides utilities for hypercube construction, creation of leaky features, and intuitive weather-based naming conventions to enhance interpretability across 2-5 sensitive groups.
 
-The model training and evaluation module integrate with scikit-learn's training pipeline while enabling assessment of model performance in fairness-sensitive settings. Its main function performs scikit-learn's standard `train_test_split()`, `fit()` and `predict()`, while computing both overall and group-specific metrics, including accuracy (precission on the sensitive group), True Positive Rate (TPR), False Positive Rate (FPR), and confusion matrix. This ensures that models trained on unfair datasets can be evaluated systematically while keeping the workflow consistent with scikit-learn's interface.
+The model training and evaluation module integrate with scikit-learn's training pipeline while enabling assessment of model performance in fairness-sensitive settings. Its main function performs scikit-learn's standard `train_test_split()`, `fit()` and `predict()`, while computing both overall and group-specific metrics, including accuracy (precision on the sensitive group), True Positive Rate (TPR), False Positive Rate (FPR), and confusion matrix. This ensures that models trained on unfair datasets can be evaluated systematically while keeping the workflow consistent with scikit-learn's interface.
+
+\newpage
 
 The visualization component provides comprehensive plotting capabilities for fairness analysis, bridging dataset generation, parameter configuration, and model evaluation. It includes functions for sensitive group-specific scatter plots, combined visualizations with centroids, and fairness metric comparisons. The module supports customizable feature selection and automatic markers and color schemes for clear interpretation of sensitive groups.
 
@@ -60,24 +64,32 @@ The visualization component provides comprehensive plotting capabilities for fai
 
 Using standard notation where $y$ denotes true labels, $\hat{y}$ predicted labels, $Z$ the sensitive attribute, and $g$ specific values of $Z$, the library implements four key fairness criteria:
 
-**Demographic parity (DP)**: Ensures different positive prediction rates across groups, formally $P(\hat{y}=1|Z=g)$ varies with $g$ [@calders2010three].
+- **Demographic parity (DP)**  
+Ensures different positive prediction rates across groups, formally $P(\hat{y}=1|Z=g)$ varies with $g$ [@calders2010three].
 
-**Equal opportunity (EO)**: Creates differences in true positive rates across groups among positive cases, $P(\hat{y}=1|y=1,Z=g)$ varies with $g$ [@hardt2016equality].
+- **Equal opportunity (EO)**  
+Creates differences in true positive rates across groups among positive cases, $P(\hat{y}=1|y=1,Z=g)$ varies with $g$ [@hardt2016equality].
 
-**Equalized odds (EOD)**: Violates both TPR and FPR equality across groups, $P(\hat{y}=1|y,Z=g)$ varies with $g$ for $y \in \{0,1\}$ [@hardt2016equality].
+- **Equalized odds (EOD)**  
+Violates both TPR and FPR equality across groups, $P(\hat{y}=1|y,Z=g)$ varies with $g$ for $y \in \{0,1\}$ [@hardt2016equality].
 
-**Equal quality**: Generates different precision values across groups, $P(y=1|\hat{y}=1,Z=g)$ varies with $g$ [@chouldechova2017fair].
+- **Equal quality**  
+Generates different precision values across groups, $P(y=1|\hat{y}=1,Z=g)$ varies with $g$ [@chouldechova2017fair].
 
-![Four fairness scenarios showing PCA-reduced feature visualizations and corresponding fairness metrics](fig/fairness-scenarios.png)
+![Four fairness scenarios showing PCA-reduced feature visualizations and corresponding fairness metrics.\label{fig:fairness-scenarios}](fig/fairness-scenarios.png)
 
 \autoref{fig:fairness-scenarios} demonstrates four generated scenarios, with PCA-reduced feature visualizations above and corresponding fairness metrics below, illustrating how different unfairness patterns manifest in both data structure and model evaluation.
 
+\newpage
+
 ### Basic Usage
 
-The following examples show how to generate datasets for all four supported fairness types:
+The following examples show how to generate datasets for all four supported fairness types. Each call returns feature matrix $X$, labels $y$, and sensitive group assignments $Z$, corresponding to the patterns shown in \autoref{fig:fairness-scenarios}. The datasets are immediately ready for use with any scikit-learn compatible classifier.
 
 ```python
-from unfair_data_generator.unfair_classification import make_unfair_classification
+from unfair_data_generator.unfair_classification import (
+  make_unfair_classification
+)
 
 # Generate datasets for all four fairness criteria
 X_dp, y_dp, Z_dp = make_unfair_classification(
@@ -93,18 +105,20 @@ X_eq, y_eq, Z_eq = make_unfair_classification(
     fairness_type='Equal quality', random_state=42)
 ```
 
-Each call returns feature matrix `X`, labels `y`, and sensitive group assignments `Z`, corresponding to the patterns shown in \autoref{fig:fairness-scenarios}. The datasets are immediately ready for use with any scikit-learn compatible classifier.
-
 ### Complete Workflow and Advanced Configuration
 
-The following example demonstrates the complete research workflow from generation to evaluation, including advanced features like leaky features and comprehensive visualization:
+The following example demonstrates the complete research workflow from generation to evaluation, including advanced features like leaky features and comprehensive visualization.
 
 ```python
-from unfair_data_generator.unfair_classification import make_unfair_classification
-from unfair_data_generator.util.model_trainer import train_and_evaluate_model_with_classifier
+from unfair_data_generator.unfair_classification import (
+  make_unfair_classification
+)
+from unfair_data_generator.util.model_trainer import (
+  train_and_evaluate_model_with_classifier
+)
 from unfair_data_generator.util.visualizer import (
-    visualize_groups_separately, visualize_group_classes,
-    visualize_TPR_FPR_metrics, visualize_accuracy
+  visualize_groups_separately, visualize_group_classes,
+  visualize_TPR_FPR_metrics, visualize_accuracy
 )
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -134,9 +148,9 @@ visualize_TPR_FPR_metrics(metrics, 'Fairness Metrics Comparison')
 
 This workflow integrates seamlessly with the scikit-learn ecosystem while demonstrating advanced features including leaky features, multiple sensitive groups, and comprehensive fairness evaluation capabilities.
 
-The library provides a comprehensive visualization suite to analyze generated datasets and model performance:
+The library provides a comprehensive visualization suite to analyze generated datasets and model performance.
 
-![Comprehensive visualization suite showing all four library functions: (A) group-specific distributions, (B) group classes with centroids, (C) classification accuracy by group, and (D) TPR/FPR comparison](fig/combined_visualization.png)
+![Comprehensive visualization suite showing all four library functions: (A) group-specific distributions, (B) group classes with centroids, (C) classification accuracy by group, and (D) TPR/FPR comparison.\label{fig:comprehensive-visualization}](fig/combined_visualization.png)
 
 \autoref{fig:comprehensive-visualization} demonstrates the complete visualization component available in the library. Panel (A) shows the output of `visualize_groups_separately()`, illustrating how sensitive attributes influence feature space structure in datasets with leaky features. Panel (B) displays `visualize_group_classes()` with PCA-reduced feature space showing the separation between groups and classes. Panel (C) presents `visualize_accuracy()` output, revealing systematic performance differences across sensitive groups that exemplify unfairness. Panel (D) shows `visualize_TPR_FPR_metrics()` results, highlighting how fairness violations manifest in both true positive and false positive rates across different sensitive groups.
 
@@ -145,7 +159,7 @@ The library provides a comprehensive visualization suite to analyze generated da
 The authors acknowledge the financial support from the Slovenian Research and Innovation Agency (research core funding No. P2-0057).
 
 [^1]: \url{https://scikit-learn.org}
-[^2]: \url{https://fairlearn.org/}
+[^2]: \url{https://fairlearn.org}
 [^3]: \url{https://github.com/Trusted-AI/AIF360}
 
 # References
